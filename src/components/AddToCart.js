@@ -1,34 +1,34 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import { FaCheck } from 'react-icons/fa'
-import { useCartContext } from '../context/cart_context'
-import AmountButtons from './AmountButtons'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { FaCheck } from 'react-icons/fa';
+import { useCartContext } from '../context/cart_context';
+import AmountButtons from './AmountButtons';
 const AddToCart = ({ product }) => {
   // add to cart
-  const { addToCart } = useCartContext()
-  const { id, stock, colors } = product
-  const [mainColor, setMainColor] = useState(colors[0])
-  const [amount, setAmount] = useState(1)
+  const { addToCart } = useCartContext();
+  const { id, stock, colors } = product;
+  const [mainColor, setMainColor] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
 
   const increase = () => {
     setAmount((oldAmount) => {
-      let tempAmount = oldAmount + 1
+      let tempAmount = oldAmount + 1;
       if (tempAmount > stock) {
-        tempAmount = stock
+        tempAmount = stock;
       }
-      return tempAmount
-    })
-  }
+      return tempAmount;
+    });
+  };
   const decrease = () => {
     setAmount((oldAmount) => {
-      let tempAmount = oldAmount - 1
+      let tempAmount = oldAmount - 1;
       if (tempAmount < 1) {
-        tempAmount = 1
+        tempAmount = 1;
       }
-      return tempAmount
-    })
-  }
+      return tempAmount;
+    });
+  };
   return (
     <Wrapper>
       <div className='colors'>
@@ -46,7 +46,7 @@ const AddToCart = ({ product }) => {
               >
                 {mainColor === color ? <FaCheck /> : null}
               </button>
-            )
+            );
           })}
         </div>
       </div>
@@ -59,15 +59,15 @@ const AddToCart = ({ product }) => {
 
         <Link
           to='/cart'
-          className='btn'
+          className='btn add-to-cart'
           onClick={() => addToCart(id, mainColor, amount, product)}
         >
           add to cart
         </Link>
       </div>
     </Wrapper>
-  )
-}
+  );
+};
 const Wrapper = styled.section`
   margin-top: 2rem;
   .colors {
@@ -112,5 +112,8 @@ const Wrapper = styled.section`
     margin-top: 1rem;
     width: 140px;
   }
-`
-export default AddToCart
+  .add-to-cart {
+    text-align: center;
+  }
+`;
+export default AddToCart;
